@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowSignal AI - Real-Time Forex Flow Analysis & Signal Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(26, 54, 93, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3182ce;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #3182ce;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #3182ce, #48bb78);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(49, 130, 206, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #48bb78;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: #f7fafc;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a365d;
+            margin-bottom: 3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3182ce, #48bb78);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a365d;
+            margin-bottom: 1rem;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 80px 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: #3182ce;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1a365d;
+            margin-bottom: 1rem;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 0;
+            background: #f7fafc;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid #3182ce;
+            transform: scale(1.05);
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a365d;
+            margin-bottom: 1rem;
+        }
+
+        .plan-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #3182ce;
+            margin-bottom: 2rem;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .plan-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: #4a5568;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #1a365d;
+        }
+
+        .testimonial-role {
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 80px 0;
+            background: #f7fafc;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 600;
+            color: #1a365d;
+            cursor: pointer;
+            background: white;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: #4a5568;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a365d;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #3182ce;
+        }
+
+        .footer-section a {
+            color: #cbd5e0;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: #3182ce;
+        }
+
+        /* Email Signup */
+        .email-signup {
+            display: flex;
+            gap: 1rem;
+            max-width: 400px;
+            margin: 2rem auto;
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .features-grid,
+            .pricing-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .email-signup {
+                flex-direction: column;
+            }
+        }
+
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="smooth-scroll">
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">FlowSignal AI</div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#testimonials">Reviews</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+                <a href="#pricing" class="cta-button">Start Free Trial</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>See Where Big Money Moves<br>Before It's Too Late</h1>
+            <p class="subtitle">FlowSignal AI democratizes institutional-grade forex flow analysis, giving retail traders the edge they need to compete against algorithmic trading systems</p>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">80%</div>
+                    <div class="stat-label">Retail accounts fail without flow data</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">28</div>
+                    <div class="stat-label">Currency pairs monitored</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">Real-time</div>
+                    <div class="stat-label">Institutional flow signals</div>
+                </div>
+            </div>
+
+            <div class="email-signup">
+                <input type="email" class="email-input" placeholder="Enter your email for free signals">
+                <button class="cta-button">Get Started Free</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Level the Playing Field Against Institutional Algorithms</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Real-Time Flow Analysis</h3>
+                    <p>Monitor institutional order flow patterns across major currency pairs using interbank tick volumes and central bank communication sentiment. See where the big money is positioning before retail catches on.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>MT5 EA Integration</h3>
+                    <p>Automated trade execution with built-in risk management. Our Expert Advisor connects directly to your MT5 platform, executing signals with proper position sizing and stop losses.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Open-Source Transparency</h3>
+                    <p>Unlike black-box competitors, our Pine Script indicators are open-source. See exactly how we calculate flow signals and institutional positioning. No hidden algorithms.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Educational Flow Analysis</h3>
+                    <p>Don't just get signals - understand WHY institutions are positioning. Learn to read flow patterns yourself with our detailed market structure education and live trade explanations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How FlowSignal AI Works</h2>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Data Collection</h3>
+                    <p>We aggregate publicly available interbank tick data, central bank communications, and options flow proxies to identify institutional positioning patterns</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Flow Analysis</h3>
+                    <p>Our AI analyzes volume patterns, carry trade positioning, and sentiment shifts to detect when institutions are building or unwinding major positions</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Signal Generation</h3>
+                    <p>Real-time alerts are generated when flow patterns align with technical levels, providing high-probability entry points with clear risk parameters</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Automated Execution</h3>
+                    <p>Signals are delivered via TradingView alerts, email, and directly to your MT5 platform for automated execution with proper risk management</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">Choose Your Trading Edge</h2>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 class="plan-name">Starter</h3>
+                    <div class="plan-price">$29<span style="font-size: 1rem; color: #718096;">/mo</span></div>
+                    <ul class="plan-features">
+                        <li>5 major currency pairs</li>
+                        <li>Basic flow signals</li>
+                        <li>TradingView alerts</li>
+                        <li>Email notifications</li>
+                        <li>Community access</li>
+                    </ul>
+                    <button class="cta-button" style="width: 100%;">Start Free Trial</button>
+                </div>
+
+                <div class="pricing-card featured">
+                    <h3 class="plan-name">Professional</h3>
+                    <div class="plan-price">$79<span style="font-size: 1rem; color: #718096;">/mo</span></div>
+                    <ul class="plan-features">
+                        <li>28 currency pairs</li>
+                        <li>MT5 EA integration</li>
+                        <li>Real-time flow dashboard</li>
+                        <li>Risk management tools</li>
+                        <li>Backtesting access</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <button class="cta-button" style="width: 100%;">Most Popular</button>
+                </div>
+
+                <div class="pricing-card">
+                    <h3 class="plan-name">Institutional</h3>
+                    <div class="plan-price">$199<span style="font-size: 1rem; color: #718096;">/mo</span></div>
+                    <ul class="plan-features">
+                        <li>All pairs including exotics</li>
+                        <li>API access</li>
+                        <li>Custom indicators</li>
+                        <li>Priority signals</li>
+                        <li>1-on-1 strategy sessions</li>
+                        <li>White-label options</li>
+                    </ul>
+                    <button class="cta-button" style="width: 100%;">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Traders Say</h2>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <p class="testimonial-text">"Finally, I can see what the big banks are doing before they move price. FlowSignal AI helped me turn around my losing streak and actually compete with institutional algorithms."</p>
+                    <div class="testimonial-author">Marcus Chen</div>
+                    <div class="testimonial-role">Professional Trader, Singapore</div>
+                </div>
+
+                <div class="testimonial">
+                    <p class="testimonial-text">"The MT5 integration is seamless and the educational content helped me understand WHY signals work. No more blind signal following - I actually understand the market now."</p>
+                    <div class="testimonial-author">Sarah Williams</div>
+                    <div class="testimonial-role">Forex Trader, London</div>
+                </div>
+
+                <div class="testimonial">
+                    <p class="testimonial-text">"As a prop trader, I needed an edge over retail sentiment. FlowSignal AI's institutional flow analysis gives our firm insights that significantly improved our EUR/USD performance."</p>
+                    <div class="testimonial-author">Alex Rodriguez</div>
+                    <div class="testimonial-role">Prop Trading Firm, Miami</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <button class="faq-question">How is this different from other forex signals?</button>
+                <div class="faq-answer">FlowSignal AI analyzes institutional order flow patterns using real market data, not just price action. While other services give you lagging signals based on what already happened, we show you where big money is positioning before retail traders catch on.</div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">What data sources do you use?</button>
+                <div class="faq-answer">We aggregate publicly available interbank tick volumes, central bank communication sentiment, options flow proxies, and carry trade positioning indicators. All data is legally accessible and transparently processed through our open-source Pine Script indicators.</div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">Do I need trading experience to use this?</button>
+                <div class="faq-answer">We recommend at least 1 year of forex trading experience and a $10,000+ account. Our signals are designed for serious retail traders who understand basic risk management and want to compete with institutional algorithms.</div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">How does the MT5 EA work?</button>
+                <div class="faq-answer">Our Expert Advisor connects to your MT5 platform and automatically executes trades when flow signals align with technical levels. It includes built-in risk management with proper position sizing, stop losses, and take profits based on market volatility.</div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">Is there a money-back guarantee?</button>
+                <div class="faq-answer">Yes, we offer a 30-day money-back guarantee. If you're not seeing improved trade performance or don't find value in our institutional flow analysis, we'll refund your subscription completely.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <a href="#features">Features</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#">API Documentation</a>
+                    <a href="#">System Status</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Education</h4>
+                    <a href="#">Flow Analysis Guide</a>
+                    <a href="#">Trading Strategies</a>
+                    <a href="#">Market Structure</a>
+                    <a href="#">Risk Management</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="#faq">FAQ</a>
+                    <a href="#">Contact Support</a>
+                    <a href="#">Community Forum</a>
+                    <a href="#">Live Chat</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <a href="#">About Us</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Disclaimer</a>
+                </div>
+            </div>
+            
+            <div style="border-top: 1px solid #4a5568; padding-top: 2rem; margin-top: 2rem;">
+                <p>&copy; 2024 FlowSignal AI. All rights reserved.</p>
+                <p style="font-size: 0.9rem; color: #718096; margin-top: 1rem;">Trading forex involves substantial risk and may not be suitable for all investors. Past performance is not indicative of future results.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                const isOpen = answer.style.display === 'block';
+                
+                // Close all other FAQ items
+                document.querySelectorAll('.faq-answer').forEach(ans => {
+                    ans.style.display = 'none';
+                });
+                
+                // Toggle current item
+                answer.style.display = isOpen ? 'none' : 'block';
+            });
+        });
+    </script>
+</body>
+</html>
