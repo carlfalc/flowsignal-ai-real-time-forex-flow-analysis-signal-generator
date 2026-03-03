@@ -1,0 +1,16 @@
+{
+  "name": "flowsignal-ai-real-time-forex-flow-analysis-signal-generator",
+  "version": "0.1.0",
+  "description": "FlowSignal AI monitors institutional forex order flow patterns across major currency pairs using publicly available tick data, volume analysis, and central bank communication sentiment. It generates r",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "ai",
+    "saas",
+    "the-firm"
+  ],
+  "author": "The Firm — AI Venture Studio",
+  "license": "MIT"
+}
