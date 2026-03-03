@@ -1,0 +1,2 @@
+# flowsignal-ai-real-time-forex-flow-analysis-signal-generator
+FlowSignal AI monitors institutional forex order flow patterns across major currency pairs using publicly available tick data, volume analysis, and central bank communication sentiment. It generates real-time trading signals for retail traders who currently lack access to institutional flow data. The platform combines Pine Script indicators with MT
